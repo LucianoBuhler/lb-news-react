@@ -126,8 +126,8 @@ export const News = () => {
     <footer>
       <div className="copyright">
         <span>News App</span>
-        <small>&copy; All Rights Reserved.</small>
       </div>
+      <small>&copy; All Rights Reserved.</small>
     </footer>
   </div>
 }
