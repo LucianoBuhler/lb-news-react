@@ -1,14 +1,9 @@
-import React, { useState, useEffect, use } from 'react'
-import techImg from '../assets/images/tech.jpg'
-import worldImg from '../assets/images/world.jpg'
-import sportsImg from '../assets/images/sports.jpg'
-import scienceImg from '../assets/images/science.jpg'
-import healthImg from '../assets/images/health.jpg'
-import entertainmentImg from '../assets/images/entertainment.jpg'
-import nationImg from '../assets/images/nation.jpg'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import noImg from '../assets/images/no-img.png'
 import './News.css'
-import axios from 'axios'
+import './NewsModal.jsx'
+import { NewsModal } from './NewsModal.jsx'
 
 const categories = [
   'general',
@@ -26,6 +21,8 @@ export const News = () => {
   const [headline, setHeadline] = useState(null)
   const [news, setNews] = useState([])
   const [selectedCategory, setSelectedCategory] = useState('general')
+  const [showModal, setShowModal] = useState(false);
+  const [selectedArticle, setSelectedArticle] = useState(null);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -42,7 +39,7 @@ export const News = () => {
         if (cachedData && cachedTime && now - cachedTime < 60 * 60 * 1000) {
           const data = JSON.parse(cachedData);
           setHeadline(data.articles[0]);
-          setNews(data.articles.slice(1, 7)); 
+          setNews(data.articles.slice(1, 7));
           return;
         }
 
@@ -82,6 +79,11 @@ export const News = () => {
     setSelectedCategory(category);
   };
 
+  const handleArticleClick = (article) => {
+    setSelectedArticle(article);
+    setShowModal(true);
+  };
+
   return <div className='news-app'>
     <div className="news-header">
       <h1 className="logo">News App</h1>
@@ -104,21 +106,22 @@ export const News = () => {
       </nav>
       <div className="news-section">
         {headline && (
-          <div className="headline">
-          <img src={headline.image || noImg} alt={headline.title} />
-          <h2 className="headline-title">{headline.title}</h2>
-        </div>
+          <div className="headline" onClick={() => handleArticleClick(headline)}>
+            <img src={headline.image || noImg} alt={headline.title} />
+            <h2 className="headline-title">{headline.title}</h2>
+          </div>
         )}
 
+        <div className="news-grid">
+          {news.map((article, index) => (
+            <div key={index} className="news-grid-item" onClick={() => handleArticleClick(article)}>
+              <img src={article.image || noImg} alt={article.title} />
+              <h3>{article.title}</h3>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="news-grid">
-        {news.map((article, index) => (
-          <div key={index} className="news-grid-item">
-            <img src={article.image || noImg} alt={article.title} />
-            <h3>{article.title}</h3>
-          </div>
-        ))}
-      </div>
+      <NewsModal show={showModal} article={selectedArticle} onClose={() => setShowModal(false)}/>
     </div>
     <footer>
       <div className="copyright">
