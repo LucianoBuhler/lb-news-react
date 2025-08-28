@@ -1,7 +1,10 @@
 import React from 'react'
+import { News } from './Components/News.jsx'
 
 export const App = () => {
   return (
-    <div>App</div>
+    <div className='container'>
+      <News/>
+    </div>
   )
 }

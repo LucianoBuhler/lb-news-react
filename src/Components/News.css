@@ -1,0 +1,255 @@
+/* .news-page {
+  container-type: inline-size; /* Enable container queries - cqi*/
+/* }   */
+
+.news-app {
+  width: min(100%, 100rem); /* Fallback - Changed from clamp to min for better responsiveness */
+
+  /* uses cqi when available */
+  @supports (width: 1cqi) {
+    width: clamp(35rem, 90cqi, 100rem);
+  };
+  height: 90dvh;
+  background-color: #060709;
+  /* border-radius: 1rem; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  box-shadow: 0 2rem 3rem rgba(0, 0, 0, 0.5);
+}
+
+.news-header {
+  width: 100%;
+  min-height: 7rem;
+  background-color: #111214;
+  border-radius: 1rem 1rem 0 0;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem;
+  color: #ddd;
+  letter-spacing: 0.2rem;
+}
+
+.news-content {
+  display: flex;
+  column-gap: 2rem;
+  height: calc(100% - 16rem);
+  padding: 0 2rem;
+}
+
+.navbar {
+  width: 20%;
+  height: 100%;
+  background-color: #111214;
+  display: flex;
+  flex-direction: column;
+  row-gap: 3rem;
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  row-gap: 3rem;
+}
+
+.nav-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  color: #ddd;
+  letter-spacing: 0.2rem;
+  margin-bottom: 2rem;
+}
+
+.nav-link {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #ddd;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+}
+
+.news-section {
+  width: 80%;
+}
+
+.headline {
+  width: 100%;
+  height: calc(45% - 2rem);
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.headline img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+  opacity: 0.4;
+}
+
+.headline-title {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 1rem 4rem 1rem 1rem;
+  font-family: 'bebas Neue', sans-serif;
+  font-size: 3rem;
+  color: #fff;
+  letter-spacing: 0.1rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 0 0 1rem 1rem;
+}
+
+.news-grid {
+  width: 100%;
+  height: 55%;
+  background-color: #111214;
+  border-radius: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1rem;
+  padding: 1.2rem;
+  justify-items: center;
+  align-items: center;
+}
+
+.news-grid-item {
+  width: 100%;
+  height: 100%;
+  min-height: 15rem;
+  border-radius: 1rem;
+  position: relative;
+}
+
+.news-grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+  opacity: 0.5;
+}
+
+.news-grid-item h3 {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 1rem 3rem 1rem 1rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  line-height: 1.4rem;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 0 0 1rem 1rem;
+}
+
+footer {
+  width: 100%;
+  min-height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  background-color: #111214;
+  border-radius: 0 0 1rem 1rem;
+}
+
+footer p {
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: #bbb;
+}
+
+.copyright span {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+}
+
+@media (max-width: 1400px) {
+  .logo {
+    font-size: 3.5rem;
+  }
+
+  .categories {
+    row-gap: 2rem;
+  }
+
+  .news-section {
+    overflow: hidden;
+  }
+
+  .news-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    overflow-y: scroll;
+  }
+
+  .news-grid::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .news-content {
+    flex-direction: column;
+    width: 100%;
+    row-gap: 2rem;
+  }
+
+  .navbar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    height: 15rem;
+    row-gap: 0;
+  }
+
+  .categories {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-link {
+    margin-right: 2rem;
+  }
+
+  .news-section {
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .navbar {
+    height: 20rem;
+  }
+
+  .headline-title {
+    font-size: 2rem;
+  }
+
+  .news-grid {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+  }
+
+  footer {
+    min-height: 8rem;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 1rem;
+  }
+}
