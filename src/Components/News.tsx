@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, MouseEvent, SetStateAction } from 'react'
 import axios from 'axios'
 import noImg from '../assets/images/no-img.png'
 import './News.css'
-import './NewsModal.jsx'
-import { NewsModal } from './NewsModal.jsx'
+import './NewsModal.js'
+import { NewsModal } from './NewsModal.js'
 
 const categories = [
   'general',
@@ -17,12 +17,18 @@ const categories = [
   'nation',
 ]
 
+type Article = {
+  title: string;
+  image?: string;
+  [key: string]: any;
+};
+
 export const News = () => {
-  const [headline, setHeadline] = useState(null)
-  const [news, setNews] = useState([])
-  const [selectedCategory, setSelectedCategory] = useState('general')
-  const [showModal, setShowModal] = useState(false);
-  const [selectedArticle, setSelectedArticle] = useState(null);
+  const [headline, setHeadline] = useState<Article | null>(null);
+  const [news, setNews] = useState<Article[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>('general');
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -36,7 +42,7 @@ export const News = () => {
         const cachedTime = localStorage.getItem(cacheTimeKey);
 
         // valid if exists and less than 60 minutes old
-        if (cachedData && cachedTime && now - cachedTime < 60 * 60 * 1000) {
+        if (cachedData && cachedTime && now - Number(cachedTime) < 60 * 60 * 1000) {
           const data = JSON.parse(cachedData);
           setHeadline(data.articles[0]);
           setNews(data.articles.slice(1, 7));
@@ -53,7 +59,7 @@ export const News = () => {
         const response = await axios.get(url);
         const fetchedNews = response.data.articles;
 
-        fetchedNews.forEach(article => {
+        fetchedNews.forEach((article: { image: string }) => {
           if (!article.image) {
             article.image = noImg;
           }
@@ -74,12 +80,12 @@ export const News = () => {
     fetchNews();
   }, [selectedCategory]);
 
-  const handleCategoryClick = (e, category) => {
+  const handleCategoryClick = (e: MouseEvent<HTMLAnchorElement, MouseEvent>, category: SetStateAction<string>) => {
     e.preventDefault();
     setSelectedCategory(category);
   };
 
-  const handleArticleClick = (article) => {
+  const handleArticleClick = (article: Article | null) => {
     setSelectedArticle(article);
     setShowModal(true);
   };

@@ -1,6 +1,21 @@
 import './NewsModal.css'
 
-export const NewsModal = ({ show, article, onClose }) => {
+type Article = {
+  image: string;
+  title: string;
+  source: { name: string };
+  publishedAt: string;
+  content: string;
+  url: string;
+};
+
+type NewsModalProps = {
+  show: boolean;
+  article: Article | null;
+  onClose: () => void;
+};
+
+export const NewsModal: React.FC<NewsModalProps> = ({ show, article, onClose }) => {
   if (!show) {
     return null;
   }
