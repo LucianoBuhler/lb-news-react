@@ -63,10 +63,10 @@ export const News = () => {
       </div>
     </div>
     <footer>
-      <p className="copyright">
+      <div className="copyright">
         <span>News App</span>
-        <p>&copy; All Rights Reserved. By Code And Create</p>
-      </p>
+        <small>&copy; All Rights Reserved.</small>
+      </div>
     </footer>
   </div>
 }
